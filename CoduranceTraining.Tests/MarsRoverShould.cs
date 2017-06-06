@@ -46,5 +46,14 @@ namespace CoduranceTraining.Tests
             Assert.AreEqual(expectedPosition, _marsRover.Move(commands));
         }
 
+
+        [TestCase("M", "1,0,E")]
+        [TestCase("MMM", "3,0,E")]
+        public void move_east(string commands, string expectedPosition)
+        {
+            _marsRover = new MarsRover(0, 0, 'E');
+            Assert.AreEqual(expectedPosition, _marsRover.Move(commands));
+        }
+
     }
 }

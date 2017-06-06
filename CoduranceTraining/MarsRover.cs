@@ -12,9 +12,8 @@
         {
             if (_currentPosition.Direction == 'N')
             {
-                return string.Format("0,{0},{1}", command.Length % 10, _currentPosition.Direction);
+                return string.Format("0,{0},{1}", _currentPosition.Y + command.Length % 10, _currentPosition.Direction);
             }
-
             return string.Format("0,{0},{1}", _currentPosition.Y - command.Length % 10, _currentPosition.Direction);
         }
     }
