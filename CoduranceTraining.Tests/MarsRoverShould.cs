@@ -19,16 +19,13 @@ namespace CoduranceTraining.Tests
             Assert.AreEqual("0,0,N", _marsRover.Move(string.Empty));
         }
         
-        [Test]
-        public void move_one_position_in_the_current_direction_when_one_move_command_provided()
+        [TestCase("M", "0,1,N")]
+        [TestCase("MMM", "0,3,N")]
+        [TestCase("MMMMMMMMMM", "0,0,N")]
+        public void move_forward_in_the_same_direction_when_no_rotations(string commands, string expectedPosition)
         {    
-            Assert.AreEqual("0,1,N", _marsRover.Move("M"));
+            Assert.AreEqual(expectedPosition, _marsRover.Move(commands));
         }
 
-        [Test]
-        public void move_three_positions_in_the_current_direction_when_one_move_command_provided()
-        {
-            Assert.AreEqual("0,3,N", _marsRover.Move("MMM"));
-        }
     }
 }
