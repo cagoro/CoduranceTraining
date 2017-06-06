@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace AnotherTwitter
 {
     public class Twitter
     {
         private readonly IConsole _console;
+        private readonly IMessageStorage _messageStorageObject;
 
-        public Twitter(IConsole console)
+        public Twitter(IConsole console, IMessageStorage messageStorageObject)
         {
             _console = console;
+            _messageStorageObject = messageStorageObject;
         }
 
         public void Run()
@@ -17,7 +20,16 @@ namespace AnotherTwitter
 
             String command = _console.ReadLine();
 
-            _console.Write("Bye bye!");
+            if (command == "exit")
+            {
+                _console.Write("Bye bye!");
+            }
+            else
+            {
+                var parts = Regex.Split(command, " -> ");
+                _messageStorageObject.Store(parts[0], parts[1]);
+                _console.Write(">");
+            }
         }
     }
 }
