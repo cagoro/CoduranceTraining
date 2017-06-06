@@ -23,11 +23,9 @@
             get { return _y; }
         }
 
-        public int Direction
+        public char Direction
         {
             get { return _direction; }
         }
-
-
     }
 }
