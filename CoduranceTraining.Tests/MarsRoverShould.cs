@@ -22,6 +22,7 @@ namespace CoduranceTraining.Tests
         [TestCase("M", "0,1,N")]
         [TestCase("MMM", "0,3,N")]
         [TestCase("MMMMMMMMMM", "0,0,N")]
+        [TestCase("MMMMMMMMMMM", "0,1,N")]
         public void move_forward_in_the_same_direction_when_no_rotations(string commands, string expectedPosition)
         {    
             Assert.AreEqual(expectedPosition, _marsRover.Move(commands));
