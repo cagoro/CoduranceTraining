@@ -14,35 +14,35 @@ namespace CoduranceTraining.Tests
             Assert.AreEqual("0,0,N", _marsRover.Move(string.Empty));
         }
         
-        [TestCase("M", "0,1,N")]
-        [TestCase("MMM", "0,3,N")]
+        [TestCase("M", "0,2,N")]
+        [TestCase("MMM", "0,4,N")]
         public void move_north(string commands, string expectedPosition)
         {
-            _marsRover = new MarsRover(0, 0, 'N');
+            _marsRover = new MarsRover(0, 1, 'N');
             Assert.AreEqual(expectedPosition, _marsRover.Move(commands));
         }
 
-        [TestCase("MMMMMMMMMM", "0,0,N")]
-        [TestCase("MMMMMMMMMMM", "0,1,N")]
+        [TestCase("MMMMMMMMMM", "0,1,N")]
+        [TestCase("MMMMMMMMMMM", "0,2,N")]
         public void wrap_around_south_when_crossing_north_boundary(string commands, string expectedPosition)
         {
-            _marsRover = new MarsRover(0, 0, 'N');
+            _marsRover = new MarsRover(0, 1, 'N');
             Assert.AreEqual(expectedPosition, _marsRover.Move(commands));
         }
 
-        [TestCase("M", "0,8,S")]
-        [TestCase("MMM", "0,6,S")]
+        [TestCase("M", "1,8,S")]
+        [TestCase("MMM", "1,6,S")]
         public void move_south(string commands, string expectedPosition)
         {
-            _marsRover = new MarsRover(0,9,'S');
+            _marsRover = new MarsRover(1,9, 'S');
             Assert.AreEqual(expectedPosition, _marsRover.Move(commands));
         }
 
-        [TestCase("MMMMMMMMMM", "0,9,S")]
-        [TestCase("MMMMMMMMMMM", "0,8,S")]
+        [TestCase("MMMMMMMMMM", "1,9,S")]
+        [TestCase("MMMMMMMMMMM", "1,8,S")]
         public void wrap_around_north_when_crossing_south_boundary(string commands, string expectedPosition)
         {
-            _marsRover = new MarsRover(0, 9, 'S');
+            _marsRover = new MarsRover(1, 9, 'S');
             Assert.AreEqual(expectedPosition, _marsRover.Move(commands));
         }
 
