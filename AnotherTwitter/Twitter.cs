@@ -1,21 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AnotherTwitter
 {
     public class Twitter
     {
-        public Twitter(ISystem systemObject, IConsole console)
+        private readonly IConsole _console;
+
+        public Twitter(IConsole console)
         {
-            throw new NotImplementedException();
+            _console = console;
         }
 
         public void Run()
         {
-            throw new NotImplementedException();
+            _console.Write(">");
+
+            String command = _console.ReadLine();
+
+            _console.Write("Bye bye!");
         }
     }
 }
