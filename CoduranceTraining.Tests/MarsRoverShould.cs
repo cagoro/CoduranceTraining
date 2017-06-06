@@ -7,24 +7,34 @@ namespace CoduranceTraining.Tests
     {
         private MarsRover _marsRover;
 
-        [SetUp]
-        public void Setup()
-        {
-            _marsRover = new MarsRover();
-        }
-
         [Test]
         public void return_initial_position_when_no_commands_provided()
-        {         
+        {
+            _marsRover = new MarsRover(0, 0, 'N');
             Assert.AreEqual("0,0,N", _marsRover.Move(string.Empty));
         }
         
         [TestCase("M", "0,1,N")]
         [TestCase("MMM", "0,3,N")]
+        public void move_north(string commands, string expectedPosition)
+        {
+            _marsRover = new MarsRover(0, 0, 'N');
+            Assert.AreEqual(expectedPosition, _marsRover.Move(commands));
+        }
+
         [TestCase("MMMMMMMMMM", "0,0,N")]
         [TestCase("MMMMMMMMMMM", "0,1,N")]
-        public void move_forward_in_the_same_direction_when_no_rotations(string commands, string expectedPosition)
-        {    
+        public void wrap_around_south_when_crossing_north_boundary(string commands, string expectedPosition)
+        {
+            _marsRover = new MarsRover(0, 0, 'N');
+            Assert.AreEqual(expectedPosition, _marsRover.Move(commands));
+        }
+
+        [TestCase("M", "0,8,S")]
+        [TestCase("MMM", "0,6,S")]
+        public void move_south(string commands, string expectedPosition)
+        {
+            _marsRover = new MarsRover(0,9,'S');
             Assert.AreEqual(expectedPosition, _marsRover.Move(commands));
         }
 
