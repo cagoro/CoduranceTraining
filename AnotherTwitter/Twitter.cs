@@ -23,13 +23,25 @@ namespace AnotherTwitter
             if (command == "exit")
             {
                 _console.Write("Bye bye!");
+                return;
             }
-            else
+            if (command.Contains(" -> "))
             {
                 var parts = Regex.Split(command, " -> ");
                 _messageStorageObject.Store(parts[0], parts[1]);
-                _console.Write(">");
+                
             }
+            else
+            {
+                var messages = _messageStorageObject.Retrieve(command);
+
+                foreach (var message in messages)
+                {
+                    _console.Write(message);
+                }
+                
+            }
+            _console.Write(">");
         }
     }
 }

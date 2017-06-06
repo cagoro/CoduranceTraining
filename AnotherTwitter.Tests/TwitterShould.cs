@@ -45,7 +45,9 @@ namespace AnotherTwitter.Tests
         [Test]
         public void list_user_messages()
         {
-            _messageStorage.Setup(m => m.Retrieve("Bob")).Returns(new [] { "hello world (5 minutes)"});
+            _console.Setup(c => c.ReadLine()).Returns("Bob");
+
+            _messageStorage.Setup(m => m.Retrieve("Bob")).Returns(new [] { "hello world! (5 minutes)"});
 
             _twitter.Run();
             
