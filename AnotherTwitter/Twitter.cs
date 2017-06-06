@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace AnotherTwitter
@@ -7,11 +9,13 @@ namespace AnotherTwitter
     {
         private readonly IConsole _console;
         private readonly IMessageStorage _messageStorageObject;
+        private readonly IUserRepository _userRepositoryObject;
 
-        public Twitter(IConsole console, IMessageStorage messageStorageObject)
+        public Twitter(IConsole console, IMessageStorage messageStorageObject, IUserRepository userRepositoryObject)
         {
             _console = console;
             _messageStorageObject = messageStorageObject;
+            _userRepositoryObject = userRepositoryObject;
         }
 
         public void Run()
@@ -31,6 +35,25 @@ namespace AnotherTwitter
                 _messageStorageObject.Store(parts[0], parts[1]);
                 
             }
+            else if (command.Contains("follow"))
+            {
+                var parts = Regex.Split(command, " follow ");
+                _userRepositoryObject.Follow(parts[0], parts[1]);
+            }
+            else if (command.Contains(" wall"))
+            {
+                var parts = Regex.Split(command, " wall");
+                IEnumerable<string> following = _userRepositoryObject.Following(parts[0]);
+
+                var allUsers = following.Concat(new[] {parts[0]});
+
+                var messages = _messageStorageObject.Retrieve(allUsers.ToArray());
+
+                foreach (var message in messages)
+                {
+                    _console.Write(message);
+                }
+            }
             else
             {
                 var messages = _messageStorageObject.Retrieve(command);
@@ -39,7 +62,7 @@ namespace AnotherTwitter
                 {
                     _console.Write(message);
                 }
-                
+
             }
             _console.Write(">");
         }

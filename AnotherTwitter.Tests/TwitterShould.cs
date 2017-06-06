@@ -10,14 +10,16 @@ namespace AnotherTwitter.Tests
         private Mock<IConsole> _console;
         private Twitter _twitter;
         private Mock<IMessageStorage> _messageStorage;
+        private Mock<IUserRepository> _userRepository;
 
         [SetUp]
         public void Setup()
         {
             _console = new Mock<IConsole>();
             _messageStorage = new Mock<IMessageStorage>();
+            _userRepository = new Mock<IUserRepository>();
 
-            _twitter = new Twitter(_console.Object, _messageStorage.Object);
+            _twitter = new Twitter(_console.Object, _messageStorage.Object, _userRepository.Object);
         }
 
         [Test]
@@ -54,6 +56,36 @@ namespace AnotherTwitter.Tests
             _console.Verify(c => c.Write(">"), Times.Exactly(2));
 
             _console.Verify(c => c.Write("hello world! (5 minutes)"));
+        }
+
+        [Test]
+        public void follow_users()
+        {
+            _console.Setup(c => c.ReadLine()).Returns("Bob follow Alice");
+
+            _twitter.Run();
+            
+            _console.Verify(c => c.Write(">"), Times.Exactly(2));
+            _userRepository.Verify(r => r.Follow("Bob", "Alice"));
+        }
+        
+        [Test]
+        public void show_wall()
+        {
+            _console.Setup(c => c.ReadLine()).Returns("Bob wall");
+
+            _userRepository.Setup(u => u.Following("Bob")).Returns(new[] {"Charlie"});
+
+            _messageStorage.Setup(m => m.Retrieve("Charlie", "Bob"))
+                                        .Returns(new[] {"Bob - hello world! (5 minutes)",
+                                                        "Charlie - hello people! (6 minutes)"});
+
+            _twitter.Run();
+
+            _console.Verify(c => c.Write(">"), Times.Exactly(2));
+            _console.Verify(c => c.Write("Bob - hello world! (5 minutes)"));
+            _console.Verify(c => c.Write("Charlie - hello people! (6 minutes)"));
+            
         }
 
     }

@@ -6,6 +6,6 @@ namespace AnotherTwitter
     {
         void Store(string username, string message);
 
-        IEnumerable<string> Retrieve(string username);
+        IEnumerable<string> Retrieve(params string[] username);
     }
 }

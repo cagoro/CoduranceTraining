@@ -42,6 +42,7 @@
     <Compile Include="IConsole.cs" />
     <Compile Include="IMessageStorage.cs" />
     <Compile Include="ISystem.cs" />
+    <Compile Include="IUserRepository.cs" />
     <Compile Include="Twitter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
