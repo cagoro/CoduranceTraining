@@ -18,7 +18,12 @@
             {
                 return string.Format("0,{0},{1}", _currentPosition.Y - command.Length % 10, _currentPosition.Direction);
             }
-            return string.Format("{0},{1},{2}", _currentPosition.X + command.Length % 10,  _currentPosition.Y, _currentPosition.Direction);
+            if (_currentPosition.Direction == 'E')
+            {
+                return string.Format("{0},{1},{2}", _currentPosition.X + command.Length % 10, _currentPosition.Y, _currentPosition.Direction);
+            }
+
+            return string.Format("{0},{1},{2}", _currentPosition.X - command.Length % 10,  _currentPosition.Y, _currentPosition.Direction);
         }
     }
 }

@@ -64,8 +64,8 @@ namespace CoduranceTraining.Tests
         }
 
 
-        [TestCase("M", "0,8,W")]
-        [TestCase("MMM", "0,6,W")]
+        [TestCase("M", "8,0,W")]
+        [TestCase("MMM", "6,0,W")]
         public void move_west(string commands, string expectedPosition)
         {
             _marsRover = new MarsRover(9, 0, 'W');
@@ -76,7 +76,7 @@ namespace CoduranceTraining.Tests
         [TestCase("MMMMMMMMMMM", "8,0,W")]
         public void wrap_around_east_when_crossing_west_boundary(string commands, string expectedPosition)
         {
-            _marsRover = new MarsRover(0, 9, 'W');
+            _marsRover = new MarsRover(9, 0, 'W');
             Assert.AreEqual(expectedPosition, _marsRover.Move(commands));
         }
 
