@@ -38,5 +38,13 @@ namespace CoduranceTraining.Tests
             Assert.AreEqual(expectedPosition, _marsRover.Move(commands));
         }
 
+        [TestCase("MMMMMMMMMM", "0,9,S")]
+        [TestCase("MMMMMMMMMMM", "0,8,S")]
+        public void wrap_around_north_when_crossing_south_boundary(string commands, string expectedPosition)
+        {
+            _marsRover = new MarsRover(0, 9, 'S');
+            Assert.AreEqual(expectedPosition, _marsRover.Move(commands));
+        }
+
     }
 }
