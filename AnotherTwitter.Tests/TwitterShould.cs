@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using System.Collections.Generic;
+using Moq;
 using NUnit.Framework;
 
 namespace AnotherTwitter.Tests
@@ -40,5 +41,18 @@ namespace AnotherTwitter.Tests
             _console.Verify(c => c.Write(">"), Times.Exactly(2));
             _messageStorage.Verify(m => m.Store("Bob", "hello world!"));
         }
+
+        [Test]
+        public void list_user_messages()
+        {
+            _messageStorage.Setup(m => m.Retrieve("Bob")).Returns(new [] { "hello world (5 minutes)"});
+
+            _twitter.Run();
+            
+            _console.Verify(c => c.Write(">"), Times.Exactly(2));
+
+            _console.Verify(c => c.Write("hello world! (5 minutes)"));
+        }
+
     }
 }
