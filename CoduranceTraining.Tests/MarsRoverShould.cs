@@ -25,7 +25,10 @@ namespace CoduranceTraining.Tests
             Assert.AreEqual("0,1,N", _marsRover.Move("M"));
         }
 
-
-
+        [Test]
+        public void move_three_positions_in_the_current_direction_when_one_move_command_provided()
+        {
+            Assert.AreEqual("0,3,N", _marsRover.Move("MMM"));
+        }
     }
 }
