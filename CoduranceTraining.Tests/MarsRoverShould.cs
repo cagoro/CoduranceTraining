@@ -9,7 +9,7 @@ namespace CoduranceTraining.Tests
         public void return_initial_position_when_no_commands_provided()
         {
             var marsRover = new MarsRover();
-            Assert.AreEqual("00N", marsRover.Move(string.Empty));
+            Assert.AreEqual("0,0,N", marsRover.Move(string.Empty));
         }
     }
 }
